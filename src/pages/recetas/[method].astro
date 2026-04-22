@@ -1,0 +1,107 @@
+---
+import { recipes } from '../../data/recipes';
+import RecipeLayout from '../../layouts/RecipeLayout.astro';
+import Card from '../../components/ui/Card.astro';
+import Info from '../../components/ui/Info.astro';
+import Text from '../../components/ui/Text.astro';
+
+export function getStaticPaths() {
+  return recipes.map((r) => ({ params: { method: r.id } }));
+}
+
+const { method } = Astro.params;
+const recipe: any = recipes.find((r) => r.id === method);
+
+const grindLabels: Record<string, string> = {
+  fine: 'Fino',
+  medium: 'Medio',
+  coarse: 'Grueso',
+};
+
+const difficultyColors: Record<string, string> = {
+  easy: 'bg-deep-earth text-vivid-rose',
+  medium: 'bg-dusty-rose text-deep-earth',
+  hard: 'bg-vivid-rose text-deep-earth',
+};
+
+const difficultyLabels: Record<string, string> = {
+  easy: 'Fácil',
+  medium: 'Medio',
+  hard: 'Difícil',
+};
+
+const totalMinutes = Math.floor(recipe.totalTime / 60);
+const totalSeconds = (recipe.totalTime % 60).toString().padStart(2, '0');
+---
+
+<RecipeLayout title={recipe.name} backHref="/recetas" startHref={`/preparar/${recipe.id}`}>
+  <div class="space-y-6">
+    <header class="text-center space-y-3">
+      <Text variant="title" class="text-3xl md:text-4xl">{recipe.name.toUpperCase()}</Text>
+      <div class="flex justify-center">
+        <span class={`text-md font-pixel px-3 py-1 rounded ${difficultyColors[recipe.difficulty]}`}>
+          {difficultyLabels[recipe.difficulty] || recipe.difficulty}
+        </span>
+      </div>
+      <Text variant="subtitle" class="text-md md:text-lg">{recipe.description}</Text>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <Card>
+        <div class="w-full space-y-4">
+          <Text variant="title" class="text-lg md:text-xl text-center">DATOS</Text>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col items-center text-center">
+              <Text variant="subtitle" class="text-lg">Café</Text>
+              <Text variant="info" class="text-xl">{recipe.coffeeAmount}g</Text>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <Text variant="subtitle" class="text-lg">Agua</Text>
+              <Text variant="info" class="text-xl">{recipe.waterAmount}ml</Text>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <Text variant="subtitle" class="text-lg">Temp</Text>
+              <Text variant="info" class="text-xl">{recipe.waterTemp}°C</Text>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <Text variant="subtitle" class="text-lg">Molienda</Text>
+              <Text variant="info" class="text-xl">
+                {grindLabels[recipe.grindSize] || recipe.grindSize}
+              </Text>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-dusty-rose/30">
+            <Info
+              title="Tiempo total"
+              description={`${totalMinutes}:${totalSeconds}`}
+            />
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <div class="w-full space-y-4">
+          <Text variant="title" class="text-lg md:text-xl text-center">INSTRUCCIONES</Text>
+
+          <ol class="space-y-4">
+            {recipe.stages.map((stage: any, i: number) => (
+              <li class="flex gap-3 items-start">
+                <span class="font-pixel text-lg text-vivid-rose shrink-0 w-8 leading-none pt-1">
+                  {(i + 1).toString().padStart(2, '0')}
+                </span>
+                <div class="flex-1 space-y-1">
+                  <Text variant="subtitle" class="text-md">{stage.name}</Text>
+                  <Text variant="info" class="text-md text-soft-petal normal-case">
+                    {stage.description}
+                  </Text>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Card>
+    </div>
+  </div>
+</RecipeLayout>

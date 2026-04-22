@@ -1,0 +1,29 @@
+---
+import Text from './Text.astro';
+interface Props {
+  title: string;
+  description: string | number;
+  orientation?: 'horizontal' | 'vertical';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  orientation = 'horizontal',
+  class: className = '',
+} = Astro.props;
+
+const isHorizontal = orientation === 'horizontal';
+---
+
+<div
+  class={`
+    ${isHorizontal ? 'flex justify-between items-center' : 'flex flex-col gap-1'}
+    text-xs
+    ${className}
+  `}
+>
+  <Text variant="subtitle">{title}</Text>
+  <Text variant="info">{description}</Text>
+</div>

@@ -1,0 +1,69 @@
+---
+import RecipeLayout from '../../layouts/RecipeLayout.astro';
+import Text from '../../components/ui/Text.astro';
+import Card from '../../components/ui/Card.astro';
+import PortionCalculator from '../../components/islands/PortionCalculator';
+import GrindVisualizer from '../../components/islands/GrindVisualizer';
+import BrewTimer from '../../components/islands/BrewTimer';
+import { recipes } from '../../data/recipes';
+
+export function getStaticPaths() {
+  return recipes.map((r) => ({ params: { method: r.id } }));
+}
+
+const { method } = Astro.params;
+const recipe: any = recipes.find((r) => r.id === method);
+
+const grindLabels: Record<string, string> = {
+  fine: 'Fino',
+  medium: 'Medio',
+  coarse: 'Grueso',
+};
+---
+
+<RecipeLayout
+  title={`Preparar ${recipe.name}`}
+  backHref={`/recetas/${recipe.id}`}
+  startHref={`/preparar/${recipe.id}`}
+>
+  <div class="space-y-6">
+    <header>
+      <Text variant="title" class="text-2xl md:text-3xl text-center">
+        PREPARAR {recipe.name.toUpperCase()}
+      </Text>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <Card>
+        <div class="w-full space-y-4">
+          <Text variant="title" class="text-lg md:text-xl text-center">MOLIENDA</Text>
+          <GrindVisualizer client:visible grindSize={recipe.grindSize} />
+          <Text variant="info" class="text-xl text-center">
+            {grindLabels[recipe.grindSize] || recipe.grindSize}
+          </Text>
+        </div>
+      </Card>
+
+      <Card>
+        <div class="w-full space-y-4">
+          <Text variant="title" class="text-lg md:text-xl text-center">PORCIONES</Text>
+          <PortionCalculator
+            client:load
+            defaultCoffee={recipe.coffeeAmount}
+            defaultWater={recipe.waterAmount}
+            recipeRatio={recipe.ratio || 10}
+          />
+        </div>
+      </Card>
+
+      <div class="md:col-span-2">
+        <Card>
+          <div class="w-full space-y-4">
+            <Text variant="title" class="text-lg md:text-xl text-center">TEMPORIZADOR</Text>
+            <BrewTimer client:load stages={recipe.stages} />
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</RecipeLayout>

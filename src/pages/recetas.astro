@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RecipeCard from '../components/recipes/RecipeCard.astro';
+import Card from '../components/ui/Card.astro';
+import { recipes } from '../data/recipes';
+import Text from '../components/ui/Text.astro';
+---
+
+<Layout title="Recetas">
+  <main class="min-h-screen bg-deep-earth p-4 md:p-8">
+    <div class="max-w-md mx-auto">
+      <header class="mb-8 text-center">
+        <Text variant="title">RECETAS</Text>
+        <p class="text-dusty-rose text-xs">Elige tu método</p>
+      </header>
+
+      <div class="space-y-4">
+        {recipes.map((recipe) => (
+          <Card href={`/recetas/${recipe.id}`}>
+            <RecipeCard recipe={recipe} />
+          </Card>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

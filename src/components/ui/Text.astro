@@ -1,0 +1,25 @@
+---
+type Variant = 'title' | 'subtitle' | 'info';
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = 'title', class: className = '' } = Astro.props as Props;
+
+const styles: Record<Variant, string> = {
+  title:
+    'font-sans font-black uppercase tracking-wide leading-tight text-vivid-rose  [-webkit-text-stroke:3px_#546581] [paint-order:stroke_fill]',
+  subtitle:
+    'font-sans font-black uppercase tracking-wide leading-tight text-soft-petal  ',
+  info:
+    'font-pixel font-black tracking-wide leading-snug text-vivid-rose',
+};
+
+const Tag = variant === 'title' ? 'h1' : variant === 'subtitle' ? 'h2' : 'p';
+---
+
+<Tag class={`${styles[variant]} ${className}`}>
+  <slot />
+</Tag>

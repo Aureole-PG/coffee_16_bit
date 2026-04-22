@@ -1,0 +1,136 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const { href, variant = 'primary', class: className = '' } = Astro.props;
+
+const variants = {
+  primary: {
+    bg: 'bg-muted-slate',
+    border: '#311E1E',
+    text: 'text-deep-earth',
+    shadow: '#2A374B',
+  },
+  secondary: {
+    bg: 'bg-muted-slate',
+    border: '#8B6465',
+    text: 'text-vivid-rose',
+    shadow: '#2A374B',
+  },
+} as const;
+
+const v = variants[variant];
+
+const borderSize = '6px';
+const innerSize = '12px';
+---
+
+{href ? (
+  <a 
+    href={href} 
+    class={`block relative ${className}`}
+  >
+    <!-- Outer border (background) -->
+    <div 
+      class="w-full"
+      style={`
+        background: ${v.border};
+        clip-path: polygon(
+          ${borderSize} 0,
+          calc(100% - ${borderSize}) 0,
+          100% ${borderSize},
+          100% calc(100% - ${borderSize}),
+          calc(100% - ${borderSize}) 100%,
+          ${borderSize} 100%,
+          0 calc(100% - ${borderSize}),
+          0 ${borderSize}
+        );
+      `}
+    >
+      <!-- Inner content - pops out with shadow -->
+      <div 
+        class={`
+          ${v.bg} ${v.text}
+          flex flex-col items-center gap-3 p-8
+          transition-all duration-75
+          cursor-pointer
+          hover:brightness-110
+          active:translate-x-1 active:translate-y-1
+        `}
+        style={`
+          margin: 4px;
+          clip-path: polygon(
+            ${innerSize} 0,
+            calc(100% - ${innerSize}) 0,
+            100% ${innerSize},
+            100% calc(100% - ${innerSize}),
+            calc(100% - ${innerSize}) 100%,
+            ${innerSize} 100%,
+            0 calc(100% - ${innerSize}),
+            0 ${innerSize}
+          );
+          box-shadow: 
+            inset -6px -6px 0 ${v.shadow},
+            inset 6px 6px 0 rgba(255, 255, 255, 0.25),
+            8px 8px 0 ${v.border};
+        `}
+      >
+        <slot />
+      </div>
+    </div>
+  </a>
+) : (
+  <div class={`block relative w-full ${className}`}>
+    <!-- Outer border -->
+    <div 
+      class="w-full"
+      style={`
+        background: ${v.border};
+        clip-path: polygon(
+          ${borderSize} 0,
+          calc(100% - ${borderSize}) 0,
+          100% ${borderSize},
+          100% calc(100% - ${borderSize}),
+          calc(100% - ${borderSize}) 100%,
+          ${borderSize} 100%,
+          0 calc(100% - ${borderSize}),
+          0 ${borderSize}
+        );
+      `}
+    >
+      <!-- Inner content -->
+      <div 
+        class={`
+          ${v.bg} ${v.text}
+          flex flex-col items-center gap-3 p-8
+          transition-all duration-75
+          cursor-pointer
+          hover:brightness-110
+          active:translate-x-1 active:translate-y-1
+        `}
+        style={`
+          margin: 4px;
+          clip-path: polygon(
+            ${innerSize} 0,
+            calc(100% - ${innerSize}) 0,
+            100% ${innerSize},
+            100% calc(100% - ${innerSize}),
+            calc(100% - ${innerSize}) 100%,
+            ${innerSize} 100%,
+            0 calc(100% - ${innerSize}),
+            0 ${innerSize}
+          );
+          box-shadow: 
+            inset -6px -6px 0 ${v.shadow},
+            inset 6px 6px 0 rgba(255, 255, 255, 0.25),
+            8px 8px 0 ${v.border};
+        `}
+      >
+        <slot />
+      </div>
+    </div>
+  </div>
+)}
