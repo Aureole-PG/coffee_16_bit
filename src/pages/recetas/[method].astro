@@ -13,9 +13,9 @@ const { method } = Astro.params;
 const recipe: any = recipes.find((r) => r.id === method);
 
 const grindLabels: Record<string, string> = {
-  fine: 'Fino',
-  medium: 'Medio',
-  coarse: 'Grueso',
+  fine: 'Fine',
+  medium: 'Medium',
+  coarse: 'Coarse',
 };
 
 const difficultyColors: Record<string, string> = {
@@ -25,9 +25,9 @@ const difficultyColors: Record<string, string> = {
 };
 
 const difficultyLabels: Record<string, string> = {
-  easy: 'Fácil',
-  medium: 'Medio',
-  hard: 'Difícil',
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
 };
 
 const totalMinutes = Math.floor(recipe.totalTime / 60);
@@ -49,15 +49,15 @@ const totalSeconds = (recipe.totalTime % 60).toString().padStart(2, '0');
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
       <Card>
         <div class="w-full space-y-4">
-          <Text variant="title" class="text-lg md:text-xl text-center">DATOS</Text>
+          <Text variant="title" class="text-lg md:text-xl text-center">STATS</Text>
 
           <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col items-center text-center">
-              <Text variant="subtitle" class="text-lg">Café</Text>
+              <Text variant="subtitle" class="text-lg">Coffee</Text>
               <Text variant="info" class="text-xl">{recipe.coffeeAmount}g</Text>
             </div>
             <div class="flex flex-col items-center text-center">
-              <Text variant="subtitle" class="text-lg">Agua</Text>
+              <Text variant="subtitle" class="text-lg">Water</Text>
               <Text variant="info" class="text-xl">{recipe.waterAmount}ml</Text>
             </div>
             <div class="flex flex-col items-center text-center">
@@ -65,7 +65,7 @@ const totalSeconds = (recipe.totalTime % 60).toString().padStart(2, '0');
               <Text variant="info" class="text-xl">{recipe.waterTemp}°C</Text>
             </div>
             <div class="flex flex-col items-center text-center">
-              <Text variant="subtitle" class="text-lg">Molienda</Text>
+              <Text variant="subtitle" class="text-lg">Grind</Text>
               <Text variant="info" class="text-xl">
                 {grindLabels[recipe.grindSize] || recipe.grindSize}
               </Text>
@@ -74,7 +74,7 @@ const totalSeconds = (recipe.totalTime % 60).toString().padStart(2, '0');
 
           <div class="pt-2 border-t border-dusty-rose/30">
             <Info
-              title="Tiempo total"
+              title="Total time"
               description={`${totalMinutes}:${totalSeconds}`}
             />
           </div>
@@ -83,7 +83,7 @@ const totalSeconds = (recipe.totalTime % 60).toString().padStart(2, '0');
 
       <Card>
         <div class="w-full space-y-4">
-          <Text variant="title" class="text-lg md:text-xl text-center">INSTRUCCIONES</Text>
+          <Text variant="title" class="text-lg md:text-xl text-center">INSTRUCTIONS</Text>
 
           <ol class="space-y-4">
             {recipe.stages.map((stage: any, i: number) => (

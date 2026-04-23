@@ -64,7 +64,7 @@ export default function PortionCalculator({
   return (
     <div class="w-full space-y-4">
       <div class="space-y-1">
-        <label class={`${subtitleClass} text-md block`}>Porciones</label>
+        <label class={`${subtitleClass} text-md block`}>Servings</label>
         <select
           value={servings}
           onChange={handleServingsChange}
@@ -80,7 +80,7 @@ export default function PortionCalculator({
 
       <div class="grid grid-cols-2 gap-3">
         <div class="space-y-1">
-          <label class={`${subtitleClass} text-md block`}>Café (g)</label>
+          <label class={`${subtitleClass} text-md block`}>Coffee (g)</label>
           <input
             type="number"
             value={coffee}
@@ -90,7 +90,7 @@ export default function PortionCalculator({
           />
         </div>
         <div class="space-y-1">
-          <label class={`${subtitleClass} text-md block`}>Agua (ml)</label>
+          <label class={`${subtitleClass} text-md block`}>Water (ml)</label>
           <input
             type="number"
             value={water}

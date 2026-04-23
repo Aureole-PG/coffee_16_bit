@@ -14,15 +14,15 @@ const difficultyColors = {
 };
 
 const methodLabels = {
-  'mocca': 'Mocca',
-  'french-press': 'Prensa Francesa',
+  'mocca': 'Moka Pot',
+  'french-press': 'French Press',
   'chocolate': 'Chocolate',
 };
 
 const grindLabels = {
-  fine: 'Fino',
-  medium: 'Medio',
-  coarse: 'Grueso',
+  fine: 'Fine',
+  medium: 'Medium',
+  coarse: 'Coarse',
 };
 ---
 
@@ -30,7 +30,9 @@ const grindLabels = {
   <header class="mb-3">
     <Text variant="title" class=`text-2xl px-2 py-0.5 rounded bg-vivid-rose`>{recipe.name}</Text>
     <div class="mt-3">
-      <span class={`text-md px-2 py-0.5  rounded ${difficultyColors[recipe.difficulty]}`}>{recipe.difficulty}</span>
+      <span class={`text-md px-2 py-0.5 rounded ${difficultyColors[recipe.difficulty]}`}>
+        {recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}
+      </span>
     </div>
     
   </header>
@@ -39,11 +41,11 @@ const grindLabels = {
 
   <div class="grid grid-cols-2 gap-2 text-xs mb-3">
     <div class="flex flex-col items-center text-center">
-      <Text variant="subtitle" class="text-lg">Café:</Text>
+      <Text variant="subtitle" class="text-lg">Coffee:</Text>
       <Text variant="info" class="text-xl">{recipe.coffeeAmount}g</Text>
     </div>
     <div class="flex flex-col items-center text-center">
-      <Text variant="subtitle" class="text-lg">Agua:</Text>
+      <Text variant="subtitle" class="text-lg">Water:</Text>
       <Text variant="info" class="text-xl">{recipe.waterAmount}ml</Text>
     </div>
     <div class="flex flex-col items-center text-center">
@@ -51,7 +53,7 @@ const grindLabels = {
       <Text variant="info" class="text-xl">{recipe.waterTemp}°C</Text>
     </div>
     <div class="flex flex-col items-center text-center">
-      <Text variant="subtitle" class="text-lg">Molienda:</Text>
+      <Text variant="subtitle" class="text-lg">Grind:</Text>
       <Text variant="info" class="text-xl">{grindLabels[recipe.grindSize] || recipe.grindSize}</Text>
     </div>
   </div>

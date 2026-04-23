@@ -3,20 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/ui/Button.astro';
 ---
 <Layout>
-	<main class="min-h-screen bg-deep-earth flex justify-center items-center ">
-		<div class="">
-			<div class="text-center w-full">
-			<h1 class="font-pixel text-3xl text-soft-petal mb-4">COFÉ</h1>
-			<p class="text-dusty-rose text-lg mb-6">Recetas de café casero</p>
-			
-			
+	<main class="min-h-screen bg-deep-earth flex flex-col justify-between items-center p-6">
+		<div class="text-center w-full">
+			<h1 class="font-pixel text-4xl text-soft-petal mb-4">COFFEE</h1>
+			<p class="text-dusty-rose text-lg mb-10">
+				Home brew guides for pixel coffee lovers
+			</p>
 		</div>
-		<div class="text-center w-full content-end">
-			<Button href="/recetas" class="w-[80%]">
-				EMPEZAR
+		<div class="text-center w-full">
+			<Button href="/recetas" class="w-[80%] max-w-md">
+				START
 			</Button>
 		</div>
-		</div>
-		
 	</main>
 </Layout>

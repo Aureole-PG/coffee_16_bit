@@ -3,7 +3,7 @@ import type { Recipe } from '../types';
 export const recipes: Recipe[] = [
   {
     id: 'mocca',
-    name: 'Café Mocca',
+    name: 'Moka Pot',
     description: 'A rich and chocolatey coffee made in the traditional moccha pot style.',
     method: 'mocca',
     coffeeAmount: 20,
@@ -22,7 +22,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: 'french-press',
-    name: 'Prensa Francesa',
+    name: 'French Press',
     description: 'Full-bodied coffee with rich oils and bold flavor.',
     method: 'french-press',
     coffeeAmount: 30,

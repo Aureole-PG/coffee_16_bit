@@ -134,7 +134,7 @@ export default function BrewTimer({ stages }: Props) {
           {formatTime(timeLeft)}
         </p>
         <p class={`${subtitleClass} text-md md:text-lg`}>
-          {currentStageData?.name || 'Listo'}
+          {currentStageData?.name || 'Ready'}
         </p>
       </div>
 
@@ -159,7 +159,7 @@ export default function BrewTimer({ stages }: Props) {
           variant="primary"
           class="flex-1 max-w-[240px]"
         >
-          {isRunning ? 'Pausar' : 'Iniciar'}
+          {isRunning ? 'Pause' : 'Start'}
         </PixelButton>
         <PixelButton onClick={handleReset} variant="secondary">
           Reset

@@ -1,7 +1,7 @@
 ---
 name: coffe-design
 description: >
-  Project-specific design patterns for the Cofe project (Astro 6.x).
+  Project-specific design patterns for the Coffee project (Astro 6.x).
   Trigger: When designing UI components, layouts, or pages in this project.
 license: Apache-2.0
 metadata:
